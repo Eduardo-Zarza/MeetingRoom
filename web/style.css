@@ -1,0 +1,230 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: "Alegreya Sans", sans-serif;
+}
+
+.topnav {
+    width: 100%;
+    margin: 0;
+    padding:0.5%;
+    overflow: hidden;
+    background-color: white;
+    align-items: center;      /* centra verticalmente */
+    height: 80px;
+}
+
+.topnav a {
+    flex-direction: row-reverse;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1em;
+    position: relative;
+    float: right;
+    padding: 0.8rem 1.2rem;
+    color: #5C5D5C;
+}
+
+.topnav a:hover{
+    color: #000000;
+}
+
+.topnav a:active{
+    color: rgb(237, 118, 40);
+}
+
+.topnav a::before{
+    content: "";
+    position: absolute;
+    display: block;
+    width: 100%;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: rgb(237, 118, 40);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+}
+.topnav a:hover::before {
+    transform: scaleX(1);
+}
+
+
+.box{
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    background-color: #edeae2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+.box h1{
+    color: #5C5D5C;
+}
+#drop-area{
+    width: 600px;
+    height: 400px;
+    padding: 30px;
+    background: white;
+    text-align: center;
+    border-radius: 20px;
+}
+#img-view{
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    border: 2px dashed #edeae2;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+}
+
+/* estado: cargando */
+#img-view.estado-loading {
+    border-color: #5C5D5C;
+    color: #5C5D5C;
+    position: relative;
+    background: white;
+}
+
+/* spinner */
+#img-view.estado-loading::after {
+    content: "";
+    width: 40px;
+    height: 40px;
+    border: 4px solid #ccc;
+    border-top-color: #5C5D5C;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@keyframes spin {
+    from { transform: translate(-50%, -50%) rotate(0deg); }
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+#img-view.estado-loading * {
+    opacity: 0;
+}
+
+#img-view img{
+    width: 100px;
+    margin-top: 25px;
+    margin-bottom: 20px;
+}
+#img-view span{
+    display: block;
+    font-size: 12px;
+    color: #777;
+    margin-top: 15px;
+}
+
+/* lista de problemas / todo bien */
+#img-view.resultado {
+    border-style: solid;
+}
+
+/* estado: todo está bien */
+#img-view.estado-ok {
+    border-color: #3cb371;  /* verde */
+    color: #3cb371;
+}
+
+/* estado: hay detalles */
+#img-view.estado-error {
+    border-color: #e74c3c;  /* rojo */
+    color: #e74c3c;
+}
+
+/* lista de problemas en rojo */
+#img-view.estado-error ul {
+    list-style: disc;
+    padding-left: 1.4rem;
+    margin-top: 10px;
+}
+#img-view.estado-error li {
+    margin-bottom: 4px;
+}
+
+/* check grande del estado OK */
+#img-view .check {
+    font-size: 3rem;
+    margin: 10px 0;
+}
+
+/* botón para repetir foto, opcional */
+#img-view button{
+    margin-top: 15px;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: none;
+    background: #5C5D5C;
+    color: white;
+    cursor: pointer;
+}
+#img-view button:hover {
+    background: #000000;
+}
+
+/* Layout de resultados con detalles: foto izquierda, texto derecha */
+.resultado-issues {
+    text-align: left;
+}
+
+.resultado-issues-body {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 24px;
+    margin-top: 16px;
+}
+
+.resultado-issues .col-foto img {
+    display: block;
+    width: 280px;      /* ancho fijo más grande */
+    height: auto;
+    border-radius: 16px;
+    object-fit: cover;
+}
+
+.resultado-issues .col-texto {
+    align-self: flex-start;
+}
+
+/* Responsive: en pantallas pequeñas apilar foto y texto */
+@media (max-width: 768px) {
+    .resultado-issues-body {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .resultado-issues .col-foto img {
+        max-width: 100%;
+    }
+
+    .resultado-issues .col-texto {
+        text-align: center;
+    }
+
+    .resultado-issues #btn-volver {
+        margin-top: 12px;
+    }
+}
