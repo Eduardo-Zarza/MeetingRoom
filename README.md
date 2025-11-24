@@ -173,8 +173,11 @@ http://127.0.0.1:8000
 1. Open `web/index.html` in any modern browser.  
 2. Upload a room image.  
 3. The system will show:
-   - ✅ **Success** screen (everything OK)  
+   - ✅ **Success** screen (everything OK)
+   - <img width="1314" height="873" alt="Screenshot_2025-11-22_at_4 30 35_a m" src="https://github.com/user-attachments/assets/91a409b1-63aa-4c4b-9598-44427a0c2702" />
    - ❌ **Issues list** (TV on, dirty board, messy chairs, etc.)
+   - <img width="1322" height="870" alt="Screenshot_2025-11-22_at_4 30 25_a m" src="https://github.com/user-attachments/assets/7f4b1365-ee78-4188-a53b-d43755bf0f05" />
+
 
 ---
 
