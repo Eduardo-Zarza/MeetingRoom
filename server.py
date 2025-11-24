@@ -27,7 +27,7 @@ BOARD_CLASS_NAME = "whiteboard"  # ajusta si tu clase se llama distinto
 CHAIR_CLASS_NAME = "chair"
 TRASH_CLASS_NAME = "trash"
 
-CONF_THRESHOLD = 0.35
+CONF_THRESHOLD = 0.70
 IMG_SIZE = 1280
 
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
