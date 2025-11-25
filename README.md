@@ -191,17 +191,55 @@ curl -X POST -F "file=@my_image.jpg" http://127.0.0.1:8000/predict
 
 # 📦 Testbed
 
-Test images live in:
-
-```
-test/images/
-```
-
 Used for:
 
 - **Ablation studies**: disabling model components  
 - **Regression testing**: making sure updates don’t break behavior  
 - **Manual validation**: visual checks  
+
+# 🔬 Ablation Study – Interpretation (GitHub Format)
+
+## 1. TV Classification
+ViT-TV is essential. Without it, reflections and bright surfaces cause YOLO-only predictions to incorrectly classify TVs as ON. The full pipeline delivers stable ON/OFF decisions.
+
+## 2. Whiteboard Classification
+ViT-Board is critical. Removing it caused multiple dirty boards to be misclassified as clean. YOLO alone cannot infer board cleanliness. The ViT adds the visual discrimination required.
+
+## 3. Chair Status
+A hybrid approach gives the best results:
+
+### Geometry Only
+- Works well with well-aligned, complete chair rows.
+- Fails when chairs are missing, rotated, in perspective distortion, or when YOLO misses detections.
+
+### ViT Only
+- Over-predicts *chairs_messy*.
+- Struggles with clean symmetric layouts.
+
+### Full Pipeline (Geometry + ViT Fallback)
+- Most reliable behavior.
+- Geometry drives primary logic.
+- ViT corrects cases where geometry is impossible (missing chairs, incomplete rows, extreme angles).
+
+## 4. Trash Detection
+Unaffected across all experiments because trash is exclusively detected via YOLO. Stable performance.
+
+## 5. Overall Behavior
+- `exp0_full` is the most consistent and accurate.
+- Disabling TV/Board ViTs introduces predictable errors.
+- Chair evaluation requires both spatial reasoning (geometry) and texture reasoning (ViT).
+- ViT modules introduce the largest accuracy gains.
+- The system architecture is validated by the ablation results.
+
+## 🎯 Final Conclusion
+The ablation confirms the hybrid architecture is optimal:
+
+- **YOLO** provides structural understanding (locations and objects).
+- **ViTs** provide fine visual classification (ON/OFF, clean/dirty, messy/ok).
+- **Geometry** provides spatial reasoning that vision alone cannot replicate.
+
+No reduced configuration matches the stability and accuracy of the full system.
+
 
 ---
 
