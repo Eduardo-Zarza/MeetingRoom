@@ -157,7 +157,7 @@ vit_chairs_ok_messy.pth
 From the project root (with venv active):
 
 ```bash
-uvicorn server:app --reload
+python3 -m uvicorn server:app --reload
 ```
 
 API runs at:
